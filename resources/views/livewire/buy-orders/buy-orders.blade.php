@@ -47,7 +47,7 @@
                                             <button title="Editar estado orden" wire:click="showEditOrderStatus({{ $buyOrder->status }}, {{ $buyOrder->id }})" class="px-1 text-gray-100 bg-orange-400 rounded-md hover:bg-orange-300">
                                                 <i class="fa fa-edit" aria-hidden="true"></i>
                                             </button>
-                                            <a href="{{ route('invoice.generate', ['buyOrder' => $buyOrder->id]) }}" title="Generar Factura" class="px-1 text-gray-100 bg-green-500 rounded-md hover:bg-green-400">
+                                            <a href="{{ route('buy.invoice.generate', ['buyOrder' => $buyOrder->id]) }}" title="Generar Factura" class="px-1 text-gray-100 bg-green-500 rounded-md hover:bg-green-400">
                                                 <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                                             </a>
                                             <button title="Eliminar orden" wire:click="showDeleteModal({{ $buyOrder->id }})" class="px-2 ml-1 text-gray-100 bg-red-600 rounded-md hover:bg-red-500">
@@ -94,7 +94,7 @@
                         </div>
                         @if($showChangeProvider)
                             <div>
-                                <button  wire:click="changeProvider">Cambiar Proovedor</button>
+                                <button wire:click="changeProvider">Cambiar Proovedor</button>
                             </div>
                         @endif
                     </div>
@@ -102,7 +102,7 @@
                     {{-- Lista de insumos para elegir --}}
             
                     @if($showSupplyComponent)
-                        @livewire('supplies.order-supplies', ['supplies' => $providerSupplies])
+                        @livewire('supplies.order-supplies', ['articles' => $providerSupplies])
                     @endif
 
                     {{-- Resto de las opciones  --}}

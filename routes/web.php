@@ -56,4 +56,5 @@ Route::get('/sell-orders', function () {
     return view('admin.sell-orders');
 })->name('sell-orders.index');
 
-Route::get('/buy-orders/{buyOrder}/generate-invoice', [InvoiceController::class, 'generateInvoice'])->name('invoice.generate');
+Route::get('/buy-orders/{buyOrder}/generate-invoice', [InvoiceController::class, 'generateInvoice'])->name('buy.invoice.generate');
+Route::get('/sell-orders/{sellOrder}/generate-invoice', [InvoiceController::class, 'generateInvoice'])->name('sell.invoice.generate');

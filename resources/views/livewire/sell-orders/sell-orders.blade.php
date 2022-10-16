@@ -41,13 +41,13 @@
                                             {{ $sellOrder->available_status[$sellOrder->status] }}
                                         </td>
                                         <td class="mt-2">
-                                            <button title="Ver Insumos" wire:click="seeOrderSupplies({{ $sellOrder->id }})" class="px-1 text-gray-100 bg-blue-600 rounded-md hover:bg-blue-500">
+                                            <button title="Ver Productos" wire:click="seeOrderProducts({{ $sellOrder->id }})" class="px-1 text-gray-100 bg-blue-600 rounded-md hover:bg-blue-500">
                                                 <i class="fa fa-list-ul" aria-hidden="true"></i>
                                             </button>
                                             <button title="Editar estado orden" wire:click="showEditOrderStatus({{ $sellOrder->status }}, {{ $sellOrder->id }})" class="px-1 text-gray-100 bg-orange-400 rounded-md hover:bg-orange-300">
                                                 <i class="fa fa-edit" aria-hidden="true"></i>
                                             </button>
-                                            <a href="{{ route('invoice.generate', ['sellOrder' => $sellOrder->id]) }}" title="Generar Factura" class="px-1 text-gray-100 bg-green-500 rounded-md hover:bg-green-400">
+                                            <a href="{{ route('sell.invoice.generate', ['sellOrder' => $sellOrder->id]) }}" title="Generar Factura" class="px-1 text-gray-100 bg-green-500 rounded-md hover:bg-green-400">
                                                 <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                                             </a>
                                             <button title="Eliminar orden" wire:click="showDeleteModal({{ $sellOrder->id }})" class="px-2 ml-1 text-gray-100 bg-red-600 rounded-md hover:bg-red-500">
@@ -94,15 +94,15 @@
                         </div>
                         @if($showChangeClient)
                             <div>
-                                <button  wire:click="ChangeClient">Cambiar Cliente</button>
+                                <button  wire:click="changeClient">Cambiar Cliente</button>
                             </div>
                         @endif
                     </div>
             
-                    {{-- Lista de insumos para elegir --}}
+                    {{-- Lista de productos para elegir --}}
             
                     @if($showProductComponent)
-                        @livewire('products.order-products', ['availableProducts' => $availableProducts])
+                        @livewire('products.order-products', ['articles' => $availableProducts])
                     @endif
 
                     {{-- Resto de las opciones  --}}
@@ -159,7 +159,7 @@
     </x-jet-dialog-modal>
 
     {{-- Modal para ver los productos de la orden --}}
-    <x-jet-dialog-modal wire:model="showOrderSupplies">
+    <x-jet-dialog-modal wire:model="showOrderProducts">
         <x-slot name="title" class="flex justify-center">
             <div class="flex justify-center">
                 Productos de la orden con ID: {{ $modelId }}
@@ -192,7 +192,7 @@
         </x-slot>
 
         <x-slot name="footer">
-            <x-jet-secondary-button wire:click="$toggle('showOrderSupplies')" wire:loading.attr="disabled">
+            <x-jet-secondary-button wire:click="$toggle('showOrderProducts')" wire:loading.attr="disabled">
                 {{ __('Cerrar') }}
             </x-jet-secondary-button>
         </x-slot>
@@ -256,7 +256,7 @@
     </x-jet-dialog-modal>
 
     <script>
-        Capturando valor al cambiar el select. Asignando a la var del comp
+        // Capturando valor al cambiar el select. Asignando a la var del comp
         $('#select-client').on('change', function (e) {
             var clientId = $('#select-client').select2("val")
             @this.set('clientId', clientId)

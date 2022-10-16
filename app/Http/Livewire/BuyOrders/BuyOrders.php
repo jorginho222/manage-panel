@@ -2,19 +2,18 @@
 
 namespace App\Http\Livewire\BuyOrders;
 
+use App\Http\Traits\OrderTrait;
 use App\Models\Supply;
 use Livewire\Component;
 use App\Models\BuyOrder;
 use App\Models\Provider;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
-use LaravelDaily\Invoices\Invoice;
-use LaravelDaily\Invoices\Classes\Buyer;
-use LaravelDaily\Invoices\Classes\InvoiceItem;
-use LaravelDaily\Invoices\Classes\Seller;
 
 class BuyOrders extends Component
 {
+    use OrderTrait;
+
     // Mostrar / ocultar
     public $modalForm = false;
     public $deleteConfirmation = false;
@@ -41,7 +40,6 @@ class BuyOrders extends Component
     public $partialPrice = 0;
     public $shippingCost;
     public $totalPrice = 0;
-
 
     public $statusId;
 
@@ -104,16 +102,6 @@ class BuyOrders extends Component
         $this->enableCreateButton = true;
     }
 
-    public function updatedShippingCost()
-    {
-        // Sumando el precio de envio
-        if ($this->shippingCost == "") {
-            $this->shippingCost = 0;
-        }
-        
-        $this->totalPrice = $this->partialPrice + $this->shippingCost;
-    }
-
     public function seeOrderSupplies($buyOrderId)
     {
         $this->getOrderSupplies($buyOrderId);
@@ -134,7 +122,7 @@ class BuyOrders extends Component
             'totalPrice',
         ]);
 
-        $this->emitTo('supplies.order-supplies', 'resetSupplies');
+        $this->emitTo('supplies.order-supplies', 'resetArticles');
         $this->emit('enableProviderSelect');
     }
 

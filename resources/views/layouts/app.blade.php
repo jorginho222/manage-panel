@@ -74,6 +74,10 @@
             // Habilitando selector de proovedor
             $('#select-provider').attr('disabled', false)
         });
+        Livewire.on('enableClientSelect', () => {
+            // Habilitando selector de proovedor
+            $('#select-client').attr('disabled', false)
+        });
         Livewire.on('disableCreateUpdateButton', () => {
             // Habilitando selector de proovedor
             $('.client').attr('disabled', true)
